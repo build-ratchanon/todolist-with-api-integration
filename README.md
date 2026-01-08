@@ -1,47 +1,59 @@
 # Todo List System
 
-This is a simple Todo List web application built with React (Next.js) and TypeScript.
+A feature-rich Todo List web application built with Next.js, React, and TypeScript, featuring a responsive, earth-toned design.
+
+## Features
+
+- **Full CRUD Functionality:** Add, edit, and delete your to-do items.
+- **Status Toggling:** Mark items as complete or incomplete with a single click on the item.
+- **Timestamped & Sorted:** Each to-do is automatically timestamped upon creation and the list is sorted to show the newest items first.
+- **Status Filtering:** Filter the list to view "All", "Completed", or "Incomplete" todos using a dropdown menu.
+- **Item Counts:** The filter bar conveniently displays the total number of to-dos.
+- **Responsive Design:** The layout is optimized for both desktop and mobile devices.
+- **User-Friendly Feedback:** Includes a loading spinner during data fetching and a message for empty states.
 
 ## How to Run
 
-1.  Install dependencies:
+1.  **Install dependencies:**
     ```bash
-    npm install
+    yarn install
     ```
-2.  Run the development server:
+2.  **Run the development server:**
     ```bash
-    npm run dev
+    yarn dev
     ```
 3.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Thought Process
+## Technical Details
 
-The goal of this assignment was to build a simple Todo List application with API integration, state management, and proper loading/error states.
+The goal of this project was to build a robust Todo List application that was both functional and aesthetically pleasing.
 
 ### Framework and Language Choice
 
-I chose to use Next.js as the React framework because it provides a great developer experience with features like file-based routing (including API routes), server-side rendering, and a simple setup. TypeScript was used for type safety and to make the code more robust and maintainable.
+Next.js was chosen as the React framework for its powerful features like API routes and server-side rendering. TypeScript was used to ensure type safety and improve code maintainability.
 
 ### API Mocking
 
-Instead of using an external mock API service, I decided to use Next.js API routes to create a mock API. This approach keeps everything within the project and makes it easy to define the API endpoints and data structures. The mock API in `app/api/todos/route.ts` handles `GET`, `POST`, `PUT`, and `DELETE` requests for to-do items.
+A mock API was created using Next.js API routes to simulate a real backend. The API in `app/api/todos/route.ts` handles `GET`, `POST`, `PUT`, and `DELETE` requests and now includes a `createdAt` timestamp for each to-do.
 
 ### State Management
 
-The React Context API was used for state management as requested. I created a `TodoContext` to provide a global state for the to-do list, loading status, and error messages. This context also exposes functions to interact with the API, such as `fetchTodos`, `addTodo`, `updateTodo`, and `deleteTodo`. This approach centralizes the state logic and makes it easy to share the state between different components without prop drilling.
+The React Context API centralizes the application's state in `app/context/TodoContext.tsx`. This includes the list of to-dos, loading/error states, and the current filter status. The context uses `useMemo` to efficiently derive the sorted and filtered list.
 
 ### UI Components
 
-The UI is broken down into three main components:
+The UI is broken down into several reusable components:
 
-*   `TodoList`: This component is responsible for fetching and displaying the list of to-do items. It also handles the loading and error states, showing appropriate messages to the user.
-*   `TodoItem`: This component represents a single to-do item. It allows the user to edit the text, mark the to-do as complete, and delete it.
-*   `AddTodo`: This component provides a simple form to add new to-do items to the list.
+-   `TodoList` & `TodoItem`: Display the list of to-dos and handle individual item interactions.
+-   `AddTodo`: Provides the form for adding new items.
+-   `FilterBar`: A dropdown menu for filtering to-dos by status and displaying the total count.
+-   `Button`: A reusable button component for consistent styling.
+-   `LoadingSpinner`: A custom loading spinner displayed during data fetching, built with Tailwind CSS.
 
 ### Styling
 
-I used Tailwind CSS for styling, as it was already set up in the project. This allowed me to quickly build a clean and modern UI without writing a lot of custom CSS.
+The application is styled using Tailwind CSS. The design features a calming, responsive, earth-tone palette.
 
-### Error Handling and Loading States
+### Dependencies
 
-The application displays a "Loading..." message while fetching the to-do items. If an error occurs during the API communication, an error message is displayed to the user. This provides a better user experience by giving feedback on the application's status.
+-   `date-fns`: Used to format the creation timestamp of each to-do item into a user-friendly, relative time.
