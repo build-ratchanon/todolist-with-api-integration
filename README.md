@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Todo List System
 
-## Getting Started
+This is a simple Todo List web application built with React (Next.js) and TypeScript.
 
-First, run the development server:
+## How to Run
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1.  Install dependencies:
+    ```bash
+    npm install
+    ```
+2.  Run the development server:
+    ```bash
+    npm run dev
+    ```
+3.  Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Thought Process
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The goal of this assignment was to build a simple Todo List application with API integration, state management, and proper loading/error states.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Framework and Language Choice
 
-## Learn More
+I chose to use Next.js as the React framework because it provides a great developer experience with features like file-based routing (including API routes), server-side rendering, and a simple setup. TypeScript was used for type safety and to make the code more robust and maintainable.
 
-To learn more about Next.js, take a look at the following resources:
+### API Mocking
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Instead of using an external mock API service, I decided to use Next.js API routes to create a mock API. This approach keeps everything within the project and makes it easy to define the API endpoints and data structures. The mock API in `app/api/todos/route.ts` handles `GET`, `POST`, `PUT`, and `DELETE` requests for to-do items.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### State Management
 
-## Deploy on Vercel
+The React Context API was used for state management as requested. I created a `TodoContext` to provide a global state for the to-do list, loading status, and error messages. This context also exposes functions to interact with the API, such as `fetchTodos`, `addTodo`, `updateTodo`, and `deleteTodo`. This approach centralizes the state logic and makes it easy to share the state between different components without prop drilling.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### UI Components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The UI is broken down into three main components:
+
+*   `TodoList`: This component is responsible for fetching and displaying the list of to-do items. It also handles the loading and error states, showing appropriate messages to the user.
+*   `TodoItem`: This component represents a single to-do item. It allows the user to edit the text, mark the to-do as complete, and delete it.
+*   `AddTodo`: This component provides a simple form to add new to-do items to the list.
+
+### Styling
+
+I used Tailwind CSS for styling, as it was already set up in the project. This allowed me to quickly build a clean and modern UI without writing a lot of custom CSS.
+
+### Error Handling and Loading States
+
+The application displays a "Loading..." message while fetching the to-do items. If an error occurs during the API communication, an error message is displayed to the user. This provides a better user experience by giving feedback on the application's status.
