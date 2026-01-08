@@ -3,7 +3,7 @@
 import { useContext, useState } from 'react'
 import { TodoContext } from '../context/TodoContext'
 import { Button } from './Button'
-import { formatDistanceToNow } from 'date-fns'
+import { format } from 'date-fns'
 
 interface Todo {
   id: number
@@ -21,7 +21,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [text, setText] = useState(todo.text)
 
-  const timeAgo = formatDistanceToNow(new Date(todo.createdAt), { addSuffix: true })
+  const date = format(new Date(todo.createdAt), 'MMM d, yyyy, h:mm a')
 
   const handleUpdate = () => {
     updateTodo(todo.id, text, todo.completed)
@@ -68,7 +68,7 @@ export const TodoItem = ({ todo }: TodoItemProps) => {
             >
               {todo.text}
             </span>
-            <p className="text-xs text-gray-500 mt-1">{timeAgo}</p>
+            <p className="text-xs text-gray-500 mt-1">{date}</p>
           </div>
         )}
       </div>
